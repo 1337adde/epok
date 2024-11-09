@@ -38,7 +38,7 @@ def read_api(db: Session = Depends(get_db)):
 
 @app.get("/{kurskod}")
 def get_modul(kurskod : str, db: Session = Depends(get_db)):
-    moduler = db.query(models.Moduler).filter(models.Moduler.kurskod == kurskod).all()
+    moduler = db.query(models.Moduler).filter(models.Moduler.kurskod == kurskod.upper()).all()
     if not moduler:
         raise HTTPException(status_code=404, detail="Kurskoden kunde inte hittas")
     return moduler
